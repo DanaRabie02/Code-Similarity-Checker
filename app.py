@@ -4,7 +4,8 @@ import torch
 import os
 import zipfile
 import requests
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoConfig
+from modernbert import ModernBertForSequenceClassification  # Make sure this file exists
 
 app = Flask(__name__)
 CORS(app)
@@ -38,32 +39,36 @@ download_and_extract_model(
     "multiclass_model"
 )
 
-# === Load models & tokenizer
+# === Load models & tokenizer ===
 tokenizer = AutoTokenizer.from_pretrained("binary_model")
-model_bin = AutoModelForSequenceClassification.from_pretrained("binary_model")
-model_mul = AutoModelForSequenceClassification.from_pretrained("multiclass_model")
+
+config_bin = AutoConfig.from_pretrained("binary_model")
+model_bin = ModernBertForSequenceClassification.from_pretrained("binary_model", config=config_bin)
+
+config_mul = AutoConfig.from_pretrained("multiclass_model")
+model_mul = ModernBertForSequenceClassification.from_pretrained("multiclass_model", config=config_mul)
 
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.json or {}
     code1 = data.get("code1", "")
     code2 = data.get("code2", "")
-    
+
     inputs = tokenizer(code1, code2,
                        padding="max_length",
                        truncation=True,
                        max_length=512,
                        return_tensors="pt")
-    
-    # === Stage 1: Binary Classification
+
+    # === Stage 1: Binary Classification ===
     with torch.no_grad():
         logits_bin = model_bin(**inputs).logits
     pred_bin = torch.argmax(logits_bin, dim=-1).item()
-    
+
     if pred_bin == 0:
         return jsonify({"type": "Type 0"})
 
-    # === Stage 2: Multi-Class Clone Type
+    # === Stage 2: Multi-Class Clone Type ===
     with torch.no_grad():
         logits_mul = model_mul(**inputs).logits
     pred_mul = torch.argmax(logits_mul, dim=-1).item()
