@@ -9,7 +9,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 app = Flask(__name__)
 CORS(app)
 
-# === Download & Extract Models from Google Drive ===
+# === Download & Extract Models from Dropbox ===
 
 def download_and_extract_model(url, zip_name, output_dir):
     if not os.path.exists(output_dir):
@@ -25,20 +25,20 @@ def download_and_extract_model(url, zip_name, output_dir):
         os.remove(zip_name)
         print(f"{output_dir} is ready.")
 
-# Replace these IDs with your actual zipped model file IDs
+# === Replace with your Dropbox direct download links (dl=1)
 download_and_extract_model(
-    "https://drive.google.com/uc?export=download&id=1GUoqoCfAfVw_XPqenISwOFGGwe5_4VyG",
+    "https://www.dropbox.com/scl/fi/snygt1rl75a4roleeyc9c/binary_model.zip?rlkey=lnvhm60z0p7gzuu0esc87gz92&st=8hns4qyr&dl=1",  # 👈 replace this
     "binary_model.zip",
     "binary_model"
 )
 
 download_and_extract_model(
-    "https://drive.google.com/uc?export=download&id=1C24L5wQypJzu359E2EW4Jgw1NHIJLKkA",
+    "https://www.dropbox.com/scl/fi/fm3bdkx7gsrxruggs6lr7/multiclass_model.zip?rlkey=cacnq2ygj69aoaebfq8sgj8qw&st=3uasftb3&dl=1",  # 👈 replace this
     "multiclass_model.zip",
     "multiclass_model"
 )
 
-# === Load models & tokenizer ===
+# === Load models & tokenizer
 tokenizer = AutoTokenizer.from_pretrained("binary_model")
 model_bin = AutoModelForSequenceClassification.from_pretrained("binary_model")
 model_mul = AutoModelForSequenceClassification.from_pretrained("multiclass_model")
@@ -55,7 +55,7 @@ def predict():
                        max_length=512,
                        return_tensors="pt")
     
-    # === Stage 1: Binary Classification ===
+    # === Stage 1: Binary Classification
     with torch.no_grad():
         logits_bin = model_bin(**inputs).logits
     pred_bin = torch.argmax(logits_bin, dim=-1).item()
@@ -63,7 +63,7 @@ def predict():
     if pred_bin == 0:
         return jsonify({"type": "Type 0"})
 
-    # === Stage 2: Multi-Class Clone Type ===
+    # === Stage 2: Multi-Class Clone Type
     with torch.no_grad():
         logits_mul = model_mul(**inputs).logits
     pred_mul = torch.argmax(logits_mul, dim=-1).item()
