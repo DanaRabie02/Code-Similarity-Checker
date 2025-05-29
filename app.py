@@ -26,15 +26,15 @@ def download_and_extract_model(url, zip_name, output_dir):
         os.remove(zip_name)
         print(f"{output_dir} is ready.")
 
-# === Replace with your Dropbox direct download links (dl=1)
+# === Download & Extract Models from GitHub Release ===
 download_and_extract_model(
-    "https://dl.dropboxusercontent.com/scl/fi/7546xgiiz54z7sx9jnj3n/binary_model.zip?rlkey=f34hv64mvp9hy09fj20w9yg3z&st=5oy9t7dk&dl=1",
+    "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/binary_model.zip",
     "binary_model.zip",
     "binary_model"
 )
 
 download_and_extract_model(
-    "https://dl.dropboxusercontent.com/scl/fi/j4djgtfp5rr0mdd329665/multiclass_model.zip?rlkey=f66xdidjwxzghmcfjiqjhpc4y&st=8lez260n&dl=1",
+    "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/multiclass_model.zip",
     "multiclass_model.zip",
     "multiclass_model"
 )
