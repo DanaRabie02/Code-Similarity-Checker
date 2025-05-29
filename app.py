@@ -27,13 +27,13 @@ def download_and_extract_model(url, zip_name, output_dir):
 
 # === Replace with your Dropbox direct download links (dl=1)
 download_and_extract_model(
-    "https://www.dropbox.com/scl/fi/snygt1rl75a4roleeyc9c/binary_model.zip?rlkey=lnvhm60z0p7gzuu0esc87gz92&st=8hns4qyr&dl=1",  # 👈 replace this
+    "https://www.dropbox.com/scl/fi/snygt1rl75a4roleeyc9c/binary_model.zip?rlkey=lnvhm60z0p7gzuu0esc87gz92&st=8hns4qyr&dl=1",
     "binary_model.zip",
     "binary_model"
 )
 
 download_and_extract_model(
-    "https://www.dropbox.com/scl/fi/fm3bdkx7gsrxruggs6lr7/multiclass_model.zip?rlkey=cacnq2ygj69aoaebfq8sgj8qw&st=3uasftb3&dl=1",  # 👈 replace this
+    "https://www.dropbox.com/scl/fi/fm3bdkx7gsrxruggs6lr7/multiclass_model.zip?rlkey=cacnq2ygj69aoaebfq8sgj8qw&st=3uasftb3&dl=1",
     "multiclass_model.zip",
     "multiclass_model"
 )
@@ -74,4 +74,5 @@ def home():
     return send_from_directory("", "index.html")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
