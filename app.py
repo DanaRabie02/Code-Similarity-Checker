@@ -5,7 +5,7 @@ import os
 import zipfile
 import requests
 from transformers import AutoTokenizer, AutoConfig
-from modernbert import ModernBertForSequenceClassification  # Make sure this file exists
+from transformers.models.bert.modeling_bert import BertForSequenceClassification as ModernBertForSequenceClassification
 
 app = Flask(__name__)
 CORS(app)
