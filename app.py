@@ -28,13 +28,13 @@ def download_and_extract_model(url, zip_name, output_dir):
 
 # === Replace with your Dropbox direct download links (dl=1)
 download_and_extract_model(
-    "https://www.dropbox.com/scl/fi/7546xgiiz54z7sx9jnj3n/binary_model.zip?rlkey=f34hv64mvp9hy09fj20w9yg3z&st=j6abfurj&dl=1",
+    "https://dl.dropboxusercontent.com/scl/fi/7546xgiiz54z7sx9jnj3n/binary_model.zip?rlkey=f34hv64mvp9hy09fj20w9yg3z&st=5oy9t7dk&dl=1",
     "binary_model.zip",
     "binary_model"
 )
 
 download_and_extract_model(
-    "https://www.dropbox.com/scl/fi/j4djgtfp5rr0mdd329665/multiclass_model.zip?rlkey=f66xdidjwxzghmcfjiqjhpc4y&st=oes5rm8j&dl=1",
+    "https://dl.dropboxusercontent.com/scl/fi/j4djgtfp5rr0mdd329665/multiclass_model.zip?rlkey=f66xdidjwxzghmcfjiqjhpc4y&st=8lez260n&dl=1",
     "multiclass_model.zip",
     "multiclass_model"
 )
