@@ -4,8 +4,12 @@ import torch
 import os
 import zipfile
 import requests
+from transformers import AutoModelForSequenceClassification
 from transformers import AutoTokenizer, AutoConfig
 from transformers.models.bert.modeling_bert import BertForSequenceClassification as ModernBertForSequenceClassification
+import transformers
+print("Transformers version:", transformers.__version__)
+
 
 app = Flask(__name__)
 CORS(app)
@@ -43,10 +47,10 @@ download_and_extract_model(
 tokenizer = AutoTokenizer.from_pretrained("binary_model")
 
 config_bin = AutoConfig.from_pretrained("binary_model")
-model_bin = ModernBertForSequenceClassification.from_pretrained("binary_model", config=config_bin)
+model_bin =  AutoModelForSequenceClassification.from_pretrained("binary_model", config=config_bin)
 
 config_mul = AutoConfig.from_pretrained("multiclass_model")
-model_mul = ModernBertForSequenceClassification.from_pretrained("multiclass_model", config=config_mul)
+model_mul =  AutoModelForSequenceClassification.from_pretrained("multiclass_model", config=config_mul)
 
 @app.route("/predict", methods=["POST"])
 def predict():
