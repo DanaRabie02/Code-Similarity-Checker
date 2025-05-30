@@ -12,11 +12,13 @@ from transformers.models.auto.tokenization_auto import tokenizer_class_from_name
 
 from modernbert.modeling_modernbert import ModernBertForSequenceClassification
 from modernbert.configuration_modernbert import ModernBertConfig
+from transformers import BertTokenizer
 
 # === Register ModernBert ===
 AutoConfig.register("modernbert", ModernBertConfig, exist_ok=True)
 AutoModelForSequenceClassification.register(ModernBertConfig, ModernBertForSequenceClassification, exist_ok=True)
-AutoTokenizer.register(ModernBertConfig, tokenizer_class_from_name("BertTokenizer"), exist_ok=True)
+AutoTokenizer.register(ModernBertConfig, BertTokenizer, exist_ok=True)
+
 
 app = Flask(__name__)
 CORS(app)
