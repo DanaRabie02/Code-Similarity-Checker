@@ -10,44 +10,44 @@ app = Flask(__name__)
 CORS(app)
 
 # === Download & Extract models only if needed ===
-def download_and_extract_model(url, zip_name, extract_folder_name):
-    extract_to = os.path.join("/tmp", extract_folder_name)
-    zip_path = os.path.join("/tmp", zip_name)
-    
-    if not os.path.exists(extract_to):
+def download_and_extract_model(url, zip_name, extract_to):
+    extract_path = os.path.join(os.getcwd(), extract_to)
+    if not os.path.exists(extract_path):
         print(f"Downloading {zip_name}...")
         r = requests.get(url)
+        zip_path = os.path.join(os.getcwd(), zip_name)
         with open(zip_path, "wb") as f:
             f.write(r.content)
         print("Extracting...")
         with zipfile.ZipFile(zip_path, "r") as zip_ref:
-            zip_ref.extractall(extract_to)
+            zip_ref.extractall(extract_path)
         os.remove(zip_path)
-        print(f"{extract_to} is ready.")
-    
-    return extract_to
+        print(f"{extract_path} is ready.")
 
 # === Pull models from GitHub Releases ===
-binary_model_path = download_and_extract_model(
+download_and_extract_model(
     "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/binary_model.zip",
     "binary_model.zip",
     "binary_model"
 )
 
-multiclass_model_path = download_and_extract_model(
+download_and_extract_model(
     "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/multiclass_model.zip",
     "multiclass_model.zip",
     "multiclass_model"
 )
 
-# === Load models & tokenizer ===
-tokenizer = AutoTokenizer.from_pretrained(binary_model_path)
+# === Load models & tokenizer using absolute paths ===
+binary_path = os.path.abspath("binary_model")
+multi_path = os.path.abspath("multiclass_model")
 
-config_bin = AutoConfig.from_pretrained(binary_model_path)
-model_bin = AutoModelForSequenceClassification.from_pretrained(binary_model_path, config=config_bin)
+tokenizer = AutoTokenizer.from_pretrained(binary_path, local_files_only=True)
 
-config_mul = AutoConfig.from_pretrained(multiclass_model_path)
-model_mul = AutoModelForSequenceClassification.from_pretrained(multiclass_model_path, config=config_mul)
+config_bin = AutoConfig.from_pretrained(binary_path, local_files_only=True)
+model_bin = AutoModelForSequenceClassification.from_pretrained(binary_path, config=config_bin, local_files_only=True)
+
+config_mul = AutoConfig.from_pretrained(multi_path, local_files_only=True)
+model_mul = AutoModelForSequenceClassification.from_pretrained(multi_path, config=config_mul, local_files_only=True)
 
 @app.route("/")
 def home():
