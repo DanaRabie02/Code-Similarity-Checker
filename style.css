@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
@@ -162,3 +163,169 @@ h1 {
 .error {
     color: red;
 }
+=======
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 95%;
+    max-width: 1400px;
+    height: 95vh;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+h1 {
+    color: #1E90FF;
+    font-size: 46px;
+    margin: 0;
+}
+
+.top-about {
+    font-size: 17px;
+    color: #444;
+    max-width: 900px;
+    text-align: center;
+    margin: 10px 0 20px;
+    line-height: 1.6;
+}
+
+.content-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 30px;
+    align-items: center;
+}
+
+.left-panel {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.code-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: 65%;
+}
+
+.code-box {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #1E90FF;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    resize: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.code-box:focus {
+    border-color: #1E90FF;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.generate-button {
+    padding: 10px 28px;
+    font-size: 16px;
+    background-color: #1E90FF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.generate-button:hover {
+    background-color: #4682B4;
+}
+
+.result {
+    margin-top: 10px;
+    font-size: 17px;
+    color: #333;
+    padding: 12px;
+    background-color: #f0f8ff;
+    border: 1px solid #1E90FF;
+    border-radius: 10px;
+    text-align: center;
+    height: 40px;
+}
+
+.right-panel {
+    flex: 1;
+    background-color: #f0f8ff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    border: 1px solid #1E90FF;
+    font-size: 15px;
+    color: #333;
+    text-align: left;
+    height: calc(100% - 10px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.right-panel h2 {
+    color: #1E90FF;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.legend {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.legend li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.tip-note {
+    background-color: #fffbe6;
+    border-left: 4px solid #ffd966;
+    padding: 10px 12px;
+    margin-top: 25px;
+    font-size: 13px;
+    color: #444;
+    border-radius: 6px;
+    line-height: 1.5;
+}
+
+.error {
+    color: red;
+}
+>>>>>>> ce8be2b424992ac19685c1e303784871c4a85789

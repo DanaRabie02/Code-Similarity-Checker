@@ -2,12 +2,40 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import torch
 import os
+import zipfile
+import requests
 from transformers import AutoTokenizer, AutoConfig, AutoModelForSequenceClassification
 
 app = Flask(__name__)
 CORS(app)
 
-# === Load models & tokenizer from local folders ===
+# === Download & Extract models only if needed ===
+def download_and_extract_model(url, zip_name, extract_to):
+    if not os.path.exists(extract_to):
+        print(f"Downloading {zip_name}...")
+        r = requests.get(url)
+        with open(zip_name, "wb") as f:
+            f.write(r.content)
+        print("Extracting...")
+        with zipfile.ZipFile(zip_name, "r") as zip_ref:
+            zip_ref.extractall(extract_to)
+        os.remove(zip_name)
+        print(f"{extract_to} is ready.")
+
+# === Pull models from GitHub Releases ===
+download_and_extract_model(
+    "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/binary_model.zip",
+    "binary_model.zip",
+    "binary_model"
+)
+
+download_and_extract_model(
+    "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/multiclass_model.zip",
+    "multiclass_model.zip",
+    "multiclass_model"
+)
+
+# === Load models & tokenizer ===
 tokenizer = AutoTokenizer.from_pretrained("binary_model")
 
 config_bin = AutoConfig.from_pretrained("binary_model")
@@ -32,7 +60,6 @@ def predict():
                        max_length=512,
                        return_tensors="pt")
 
-    # === Stage 1: Binary Classification ===
     with torch.no_grad():
         logits_bin = model_bin(**inputs).logits
     pred_bin = torch.argmax(logits_bin, dim=-1).item()
@@ -40,7 +67,6 @@ def predict():
     if pred_bin == 0:
         return jsonify({"type": "Type 0"})
 
-    # === Stage 2: Multi-Class Classification ===
     with torch.no_grad():
         logits_mul = model_mul(**inputs).logits
     pred_mul = torch.argmax(logits_mul, dim=-1).item()

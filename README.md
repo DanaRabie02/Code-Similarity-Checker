@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # 💻 Code Similarity Checker
 
@@ -68,3 +69,7 @@ University of Jordan – Class of 2025
 ## 🌐 Demo
 
 Check it out live 👉 [Insert your Hugging Face Space link here]
+=======
+# Code-Similarity-Checker
+ Code Similarity Checker
+>>>>>>> ce8be2b424992ac19685c1e303784871c4a85789
