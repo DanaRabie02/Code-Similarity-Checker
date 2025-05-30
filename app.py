@@ -7,6 +7,8 @@ from flask_cors import CORS
 import torch
 import zipfile
 import requests
+import time  # Added for sleep
+
 from transformers import AutoConfig, AutoModelForSequenceClassification
 from transformers import PreTrainedTokenizerFast
 
@@ -46,9 +48,20 @@ download_and_extract_model(
     "/tmp/multiclass_model"
 )
 
-# === Load models & tokenizer ===
-tokenizer = PreTrainedTokenizerFast(tokenizer_file="/tmp/binary_model/tokenizer.json")
+# === Load tokenizer (wait until it's fully extracted) ===
+tokenizer_path = "/tmp/binary_model/tokenizer.json"
 
+# Wait up to 10 seconds for the file to appear
+for _ in range(20):
+    if os.path.exists(tokenizer_path):
+        break
+    time.sleep(0.5)
+else:
+    raise FileNotFoundError(f"{tokenizer_path} not found after waiting.")
+
+tokenizer = PreTrainedTokenizerFast(tokenizer_file=tokenizer_path)
+
+# === Load models ===
 config_bin = AutoConfig.from_pretrained("/tmp/binary_model", local_files_only=True)
 model_bin = ModernBertForSequenceClassification.from_pretrained("/tmp/binary_model", config=config_bin, local_files_only=True)
 
