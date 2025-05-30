@@ -7,18 +7,15 @@ from flask_cors import CORS
 import torch
 import zipfile
 import requests
-from transformers import AutoTokenizer, AutoConfig, AutoModelForSequenceClassification
-from transformers.models.auto.tokenization_auto import tokenizer_class_from_name
+from transformers import AutoConfig, AutoModelForSequenceClassification
+from transformers import PreTrainedTokenizerFast
 
 from modernbert.modeling_modernbert import ModernBertForSequenceClassification
 from modernbert.configuration_modernbert import ModernBertConfig
-from transformers import BertTokenizer
 
 # === Register ModernBert ===
 AutoConfig.register("modernbert", ModernBertConfig, exist_ok=True)
 AutoModelForSequenceClassification.register(ModernBertConfig, ModernBertForSequenceClassification, exist_ok=True)
-AutoTokenizer.register(ModernBertConfig, BertTokenizer, exist_ok=True)
-
 
 app = Flask(__name__)
 CORS(app)
@@ -50,7 +47,7 @@ download_and_extract_model(
 )
 
 # === Load models & tokenizer ===
-tokenizer = AutoTokenizer.from_pretrained("/tmp/binary_model", local_files_only=True)
+tokenizer = PreTrainedTokenizerFast.from_pretrained("/tmp/binary_model", local_files_only=True)
 
 config_bin = AutoConfig.from_pretrained("/tmp/binary_model", local_files_only=True)
 model_bin = ModernBertForSequenceClassification.from_pretrained("/tmp/binary_model", config=config_bin, local_files_only=True)
