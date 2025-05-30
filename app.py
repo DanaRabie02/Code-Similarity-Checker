@@ -5,7 +5,7 @@ import os
 import zipfile
 import requests
 from transformers import AutoTokenizer, AutoConfig
-from modeling_modernbert import ModernBertForSequenceClassification
+from modernbert.modeling_modernbert import ModernBertForSequenceClassification
 
 app = Flask(__name__)
 CORS(app)
