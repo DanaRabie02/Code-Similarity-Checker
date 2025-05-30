@@ -5,11 +5,18 @@ os.environ["TORCHINDUCTOR_DISABLE"] = "1"
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import torch
-import os
 import zipfile
 import requests
-from transformers import AutoTokenizer, AutoConfig
+from transformers import AutoTokenizer, AutoConfig, AutoModelForSequenceClassification
+from transformers.models.auto.tokenization_auto import tokenizer_class_from_name
+
 from modernbert.modeling_modernbert import ModernBertForSequenceClassification
+from modernbert.configuration_modernbert import ModernBertConfig
+
+# === Register ModernBert ===
+AutoConfig.register("modernbert", ModernBertConfig)
+AutoModelForSequenceClassification.register(ModernBertConfig, ModernBertForSequenceClassification)
+AutoTokenizer.register(ModernBertConfig, tokenizer_class_from_name("BertTokenizer"))
 
 app = Flask(__name__)
 CORS(app)
@@ -30,16 +37,15 @@ def download_and_extract_model(url, zip_name, extract_to):
 # === Pull models from GitHub Releases ===
 download_and_extract_model(
     "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/binary_model.zip",
-    "/tmp/binary_model.zip",       # ← FIXED HERE
+    "/tmp/binary_model.zip",
     "/tmp/binary_model"
 )
 
 download_and_extract_model(
     "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/multiclass_model.zip",
-    "/tmp/multiclass_model.zip",   # ← FIXED HERE
+    "/tmp/multiclass_model.zip",
     "/tmp/multiclass_model"
 )
-
 
 # === Load models & tokenizer ===
 tokenizer = AutoTokenizer.from_pretrained("/tmp/binary_model", local_files_only=True)
