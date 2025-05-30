@@ -30,15 +30,16 @@ def download_and_extract_model(url, zip_name, extract_to):
 # === Pull models from GitHub Releases ===
 download_and_extract_model(
     "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/binary_model.zip",
-    "binary_model.zip",
+    "/tmp/binary_model.zip",       # ← FIXED HERE
     "/tmp/binary_model"
 )
 
 download_and_extract_model(
     "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/multiclass_model.zip",
-    "multiclass_model.zip",
+    "/tmp/multiclass_model.zip",   # ← FIXED HERE
     "/tmp/multiclass_model"
 )
+
 
 # === Load models & tokenizer ===
 tokenizer = AutoTokenizer.from_pretrained("/tmp/binary_model", local_files_only=True)
