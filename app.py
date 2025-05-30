@@ -11,15 +11,16 @@ CORS(app)
 
 # === Download & Extract models only if needed ===
 def download_and_extract_model(url, zip_name, extract_to):
+    zip_path = os.path.join("/tmp", zip_name)
     if not os.path.exists(extract_to):
         print(f"Downloading {zip_name}...")
         r = requests.get(url)
-        with open(zip_name, "wb") as f:
+        with open(zip_path, "wb") as f:
             f.write(r.content)
         print("Extracting...")
-        with zipfile.ZipFile(zip_name, "r") as zip_ref:
+        with zipfile.ZipFile(zip_path, "r") as zip_ref:
             zip_ref.extractall(extract_to)
-        os.remove(zip_name)
+        os.remove(zip_path)
         print(f"{extract_to} is ready.")
 
 # === Pull models from GitHub Releases ===
