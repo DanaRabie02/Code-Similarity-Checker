@@ -6,6 +6,8 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip install --upgrade git+https://github.com/huggingface/transformers
+
 COPY . .
 
 EXPOSE 7860
