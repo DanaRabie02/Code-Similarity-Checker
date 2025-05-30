@@ -25,6 +25,7 @@ async function generateResult() {
 
         const data = await response.json();
         resultDiv.innerHTML = `<p>Detected clone type: <strong>${data.type}</strong></p>`;
+        resultDiv.scrollIntoView({ behavior: "smooth" });
     } catch (err) {
         console.error('Error calling backend:', err);
         resultDiv.innerHTML = '<p class="error">Error connecting to the server. Please make sure the backend is running.</p>';

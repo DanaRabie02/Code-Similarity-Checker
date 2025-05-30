@@ -1,30 +1,35 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+* {
+    box-sizing: border-box;
+}
+
+html, body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Main container */
 .container {
-    width: 95%;
+    width: 100%;
     max-width: 1400px;
-    height: 95vh;
+    max-height: 100%;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     padding: 30px 40px;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    overflow: hidden;
 }
 
+/* Header */
 h1 {
     color: #1E90FF;
     font-size: 46px;
@@ -40,22 +45,24 @@ h1 {
     line-height: 1.6;
 }
 
+/* Content layout */
 .content-wrapper {
     display: flex;
+    flex: 1;
     width: 100%;
-    height: 100%;
     gap: 30px;
-    align-items: center;
+    overflow: hidden;
 }
 
+/* Left panel */
 .left-panel {
     flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
 }
 
+/* Code input */
 .code-row {
     display: flex;
     gap: 20px;
@@ -72,8 +79,6 @@ h1 {
     font-size: 14px;
     background-color: #f7f7f7;
     resize: none;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
     height: 100%;
 }
 
@@ -82,6 +87,7 @@ h1 {
     box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
 }
 
+/* Button */
 .button-container {
     display: flex;
     justify-content: center;
@@ -103,6 +109,7 @@ h1 {
     background-color: #4682B4;
 }
 
+/* Result box */
 .result {
     margin-top: 10px;
     font-size: 17px;
@@ -115,6 +122,7 @@ h1 {
     height: 40px;
 }
 
+/* Right panel */
 .right-panel {
     flex: 1;
     background-color: #f0f8ff;
@@ -124,8 +132,6 @@ h1 {
     font-size: 15px;
     color: #333;
     text-align: left;
-    height: calc(100% - 10px);
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
