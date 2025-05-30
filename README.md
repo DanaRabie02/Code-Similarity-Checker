@@ -7,6 +7,7 @@ sdk: docker
 app_file: app.py
 pinned: false
 ---
+
 <<<<<<< HEAD
 # 💻 Code Similarity Checker
 
@@ -78,7 +79,7 @@ University of Jordan – Class of 2025
 
 Check it out live 👉 [https://huggingface.co/spaces/DanaRabie2002/code-similarity-checker]
 <!-- Force refresh for Hugging Face deployment -->
-
+<!-- Trigger rebuild -->
 =======
 # Code-Similarity-Checker
  Code Similarity Checker
