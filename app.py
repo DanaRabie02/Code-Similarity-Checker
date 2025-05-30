@@ -14,9 +14,9 @@ from modernbert.modeling_modernbert import ModernBertForSequenceClassification
 from modernbert.configuration_modernbert import ModernBertConfig
 
 # === Register ModernBert ===
-AutoConfig.register("modernbert", ModernBertConfig)
-AutoModelForSequenceClassification.register(ModernBertConfig, ModernBertForSequenceClassification)
-AutoTokenizer.register(ModernBertConfig, tokenizer_class_from_name("BertTokenizer"))
+AutoConfig.register("modernbert", ModernBertConfig, exist_ok=True)
+AutoModelForSequenceClassification.register(ModernBertConfig, ModernBertForSequenceClassification, exist_ok=True)
+AutoTokenizer.register(ModernBertConfig, tokenizer_class_from_name("BertTokenizer"), exist_ok=True)
 
 app = Flask(__name__)
 CORS(app)
