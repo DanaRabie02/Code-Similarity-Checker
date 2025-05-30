@@ -77,7 +77,9 @@ University of Jordan – Class of 2025
 
 ## 🌐 Demo
 
-Check it out live 👉 [Insert your Hugging Face Space link here]
+Check it out live 👉 [https://huggingface.co/spaces/DanaRabie2002/code-similarity-checker]
+<!-- Force refresh for Hugging Face deployment -->
+
 =======
 # Code-Similarity-Checker
  Code Similarity Checker
