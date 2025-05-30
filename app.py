@@ -10,8 +10,10 @@ app = Flask(__name__)
 CORS(app)
 
 # === Download & Extract models only if needed ===
-def download_and_extract_model(url, zip_name, extract_to):
+def download_and_extract_model(url, zip_name, extract_folder_name):
+    extract_to = os.path.join("/tmp", extract_folder_name)
     zip_path = os.path.join("/tmp", zip_name)
+    
     if not os.path.exists(extract_to):
         print(f"Downloading {zip_name}...")
         r = requests.get(url)
@@ -22,28 +24,30 @@ def download_and_extract_model(url, zip_name, extract_to):
             zip_ref.extractall(extract_to)
         os.remove(zip_path)
         print(f"{extract_to} is ready.")
+    
+    return extract_to
 
 # === Pull models from GitHub Releases ===
-download_and_extract_model(
+binary_model_path = download_and_extract_model(
     "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/binary_model.zip",
     "binary_model.zip",
     "binary_model"
 )
 
-download_and_extract_model(
+multiclass_model_path = download_and_extract_model(
     "https://github.com/DanaRabie02/Code-Similarity-Checker/releases/download/v1/multiclass_model.zip",
     "multiclass_model.zip",
     "multiclass_model"
 )
 
 # === Load models & tokenizer ===
-tokenizer = AutoTokenizer.from_pretrained("binary_model")
+tokenizer = AutoTokenizer.from_pretrained(binary_model_path)
 
-config_bin = AutoConfig.from_pretrained("binary_model")
-model_bin = AutoModelForSequenceClassification.from_pretrained("binary_model", config=config_bin)
+config_bin = AutoConfig.from_pretrained(binary_model_path)
+model_bin = AutoModelForSequenceClassification.from_pretrained(binary_model_path, config=config_bin)
 
-config_mul = AutoConfig.from_pretrained("multiclass_model")
-model_mul = AutoModelForSequenceClassification.from_pretrained("multiclass_model", config=config_mul)
+config_mul = AutoConfig.from_pretrained(multiclass_model_path)
+model_mul = AutoModelForSequenceClassification.from_pretrained(multiclass_model_path, config=config_mul)
 
 @app.route("/")
 def home():
