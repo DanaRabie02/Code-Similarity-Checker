@@ -4,7 +4,8 @@ import torch
 import os
 import zipfile
 import requests
-from transformers import AutoTokenizer, AutoConfig, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoConfig
+from modernbert.modeling_modernbert import ModernBertForSequenceClassification
 
 app = Flask(__name__)
 CORS(app)
@@ -14,13 +15,12 @@ def download_and_extract_model(url, zip_name, extract_to):
     if not os.path.exists(extract_to):
         print(f"Downloading {zip_name}...")
         r = requests.get(url)
-        zip_path = f"/tmp/{zip_name}"
-        with open(zip_path, "wb") as f:
+        with open(zip_name, "wb") as f:
             f.write(r.content)
         print("Extracting...")
-        with zipfile.ZipFile(zip_path, "r") as zip_ref:
+        with zipfile.ZipFile(zip_name, "r") as zip_ref:
             zip_ref.extractall(extract_to)
-        os.remove(zip_path)
+        os.remove(zip_name)
         print(f"{extract_to} is ready.")
 
 # === Pull models from GitHub Releases ===
@@ -40,10 +40,10 @@ download_and_extract_model(
 tokenizer = AutoTokenizer.from_pretrained("/tmp/binary_model", local_files_only=True)
 
 config_bin = AutoConfig.from_pretrained("/tmp/binary_model", local_files_only=True)
-model_bin = AutoModelForSequenceClassification.from_pretrained("/tmp/binary_model", config=config_bin, local_files_only=True)
+model_bin = ModernBertForSequenceClassification.from_pretrained("/tmp/binary_model", config=config_bin, local_files_only=True)
 
 config_mul = AutoConfig.from_pretrained("/tmp/multiclass_model", local_files_only=True)
-model_mul = AutoModelForSequenceClassification.from_pretrained("/tmp/multiclass_model", config=config_mul, local_files_only=True)
+model_mul = ModernBertForSequenceClassification.from_pretrained("/tmp/multiclass_model", config=config_mul, local_files_only=True)
 
 @app.route("/")
 def home():
