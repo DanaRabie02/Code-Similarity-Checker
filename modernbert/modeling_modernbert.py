@@ -43,12 +43,6 @@ from transformers.modeling_utils import PreTrainedModel
 from transformers.utils import auto_docstring, is_flash_attn_2_available, logging
 from transformers.utils.import_utils import is_triton_available
 from modernbert.configuration_modernbert import ModernBertConfig
-from ...modeling_rope_utils import ROPE_INIT_FUNCTIONS, dynamic_rope_update
-from ...modeling_utils import PreTrainedModel
-from ...utils import auto_docstring, is_flash_attn_2_available, logging
-from ...utils.import_utils import is_triton_available
-from .configuration_modernbert import ModernBertConfig
-
 
 if is_flash_attn_2_available():
     from flash_attn.flash_attn_interface import flash_attn_varlen_qkvpacked_func

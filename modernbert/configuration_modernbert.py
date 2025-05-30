@@ -20,8 +20,7 @@
 # limitations under the License.
 
 from typing import Literal
-
-from ...configuration_utils import PretrainedConfig
+from transformers.configuration_utils import PretrainedConfig
 
 
 class ModernBertConfig(PretrainedConfig):
