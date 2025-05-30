@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Similarity Checker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Code Similarity Checker</h1>
+    <p class="about top-about">
+        💡 An AI-powered tool that detects code similarity and classifies clone types based on how closely code snippets align in logic, structure, or function.
+    </p>
+
+    <div class="content-wrapper">
+        <div class="left-panel">
+            <div class="code-row">
+                <textarea id="code1" class="code-box" placeholder="Enter Code 1 here..."></textarea>
+                <textarea id="code2" class="code-box" placeholder="Enter Code 2 here..."></textarea>
+            </div>
+            <div class="button-container">
+                <button class="generate-button" onclick="generateResult()">Generate</button>
+            </div>
+            <div id="result" class="result"></div>
+        </div>
+
+        <div class="right-panel">
+            <h2>🗂 Clone Type Guide</h2>
+            <ul class="legend">
+                <li><strong>Type 0</strong> — Completely different codes</li>
+                <li><strong>Type 1</strong> — Identical except for whitespace/comments</li>
+                <li><strong>Type 2</strong> — Same code structure with renamed variables/functions</li>
+                <li><strong>Type 3</strong> — Same algorithm, different implementation</li>
+                <li><strong>Type 4</strong> — Different algorithm, same functionality</li>
+            </ul>
+
+            <div class="tip-note">
+                🛈 This tool was developed by Computer Engineering students as part of an academic project. It uses deep learning to analyze code similarity. While great care was taken, predictions may occasionally vary due to model limitations.
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
