@@ -47,7 +47,7 @@ download_and_extract_model(
 )
 
 # === Load models & tokenizer ===
-tokenizer = PreTrainedTokenizerFast.from_pretrained("/tmp/binary_model", local_files_only=True)
+tokenizer = PreTrainedTokenizerFast(tokenizer_file="/tmp/binary_model/tokenizer.json")
 
 config_bin = AutoConfig.from_pretrained("/tmp/binary_model", local_files_only=True)
 model_bin = ModernBertForSequenceClassification.from_pretrained("/tmp/binary_model", config=config_bin, local_files_only=True)
