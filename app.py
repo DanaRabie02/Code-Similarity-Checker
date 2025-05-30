@@ -48,6 +48,10 @@ model_mul = AutoModelForSequenceClassification.from_pretrained("multiclass_model
 def home():
     return send_file("index.html")
 
+@app.route("/static/<path:filename>")
+def serve_static(filename):
+    return send_file(os.path.join("static", filename))
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.json or {}
