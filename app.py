@@ -1,3 +1,7 @@
+import os
+os.environ["TORCHINDUCTOR_CACHE_DIR"] = "/tmp/inductor_cache"
+os.environ["TORCHINDUCTOR_DISABLE"] = "1"
+
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import torch
