@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 title: Code Similarity Checker
 emoji: 🧠
@@ -8,7 +7,7 @@ sdk: docker
 app_file: app.py
 pinned: false
 ---
-
+<<<<<<< HEAD
 # 💻 Code Similarity Checker
 
 An AI-powered web tool that detects similarity between two code snippets and classifies them into specific **code clone types** using deep learning.
